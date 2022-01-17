@@ -7,6 +7,7 @@ s3_bucket="upgrad-amar"
 sudo apt update -y
 sudo apt install apache2 -y
 
+
 if [ `service apache2 status | grep running | wc -l` == 1 ]
 then
 	echo "Apache2 is running"
@@ -16,6 +17,7 @@ else
 	sudo service apache2 start 
 
 fi
+
 
 if [ `service apache2 status | grep enabled | wc -l` == 1 ]
 then
@@ -33,6 +35,7 @@ cd /var/log/apache2/
 tar -cvf /tmp/${myname}-httpd-logs-${timestamp}.tar *.log
 
 echo "Copying logs to s3"
+
 
 aws s3 \
 cp /tmp/${myname}-httpd-logs-${timestamp}.tar \
