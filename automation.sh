@@ -2,7 +2,7 @@
 
 timestamp=$(date '+%d%m%Y-%H%M%S')
 myname="amar"
-s3_bucket="upgrad-amar/logs"
+s3_bucket="upgrad-amar"
 
 sudo apt update -y
 sudo apt install apache2 -y
