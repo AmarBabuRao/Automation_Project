@@ -7,6 +7,7 @@ s3_bucket="upgrad-amar"
 sudo apt update -y
 sudo apt install apache2 -y
 
+
 if [ `service apache2 status | grep running | wc -l` == 1 ]
 then
 	echo "Apache2 is running"
@@ -16,6 +17,7 @@ else
 	sudo service apache2 start 
 
 fi
+
 
 if [ `service apache2 status | grep enabled | wc -l` == 1 ]
 then
@@ -34,6 +36,7 @@ tar -cvf /tmp/${myname}-httpd-logs-${timestamp}.tar *.log
 
 echo "Copying logs to s3"
 
+
 aws s3 \
 cp /tmp/${myname}-httpd-logs-${timestamp}.tar \
 s3://${s3_bucket}/${myname}-httpd-logs-${timestamp}.tar
@@ -46,6 +49,7 @@ else
         echo "<b>Log Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date Created &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size</b>" >> /var/www/html/inventory.html
 fi
 
+
 echo "<br>httpd-logs &nbsp;&nbsp;&nbsp;&nbsp; ${timestamp} &nbsp;&nbsp;&nbsp;&nbsp; tar &nbsp;&nbsp;&nbsp;&nbsp; `du -h /tmp/${myname}-httpd-logs-${timestamp}.tar | awk '{print $1}'`" >> /var/www/html/inventory.html
 
 if [ -e /etc/cron.d/automation ]
@@ -56,3 +60,4 @@ else
         echo "0 0 * * * root /root/Automation_Project/automation.sh" > /etc/cron.d/automation
         echo "Cron job added"
 fi
+
